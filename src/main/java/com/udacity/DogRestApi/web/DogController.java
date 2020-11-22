@@ -20,17 +20,29 @@ public class DogController {
         this.dogService = dogService;
     }
 
-
-
+    @GetMapping("/dogs/name")
+    public ResponseEntity<List<String>> getAllName() {
+        List<String> list = dogService.retrieveDogNames();
+        return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+    }
     @GetMapping("/dogs")
     public ResponseEntity<List<Dog>> getAllDogs(){
-       List<Dog> list= dogService.retrievedogs();
-       return new  ResponseEntity<List<Dog>>(list, HttpStatus.OK);
+        List<Dog> list= dogService.retrievedogs();
+        return new  ResponseEntity<List<Dog>>(list, HttpStatus.OK);
+    }
+    @GetMapping("/dogs/breed")
+    public  ResponseEntity<List<String>> getAllbreeds(){
+        return new ResponseEntity<List<String>>(dogService.retrieveDogBreed(),HttpStatus.OK);
+    }
+
+
+    @GetMapping("/dogs/breed/{id}")
+    public ResponseEntity<String> getBreedById(@PathVariable Long id){
+        String strings= dogService.retrieveDogBreedById(id);
+        return new ResponseEntity<String>(strings,HttpStatus.OK);
+
     }
 }
-
-
-
 
 
 
